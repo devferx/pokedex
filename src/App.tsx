@@ -1,5 +1,13 @@
+import { Card, CardBody } from '@nextui-org/card'
+
 function App() {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>
+  return (
+    <Card>
+      <CardBody>
+        <p>Make beautiful websites regardless of your design experience.</p>
+      </CardBody>
+    </Card>
+  )
 }
 
 export default App
