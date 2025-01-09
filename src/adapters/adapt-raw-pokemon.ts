@@ -9,7 +9,7 @@ export const adaptRawPokemon = (results: RawPokemon[]): Pokemon[] => {
     return {
       id,
       name: pokemon.name,
-      photoSrc: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
+      imageSrc: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
     }
   })
 
