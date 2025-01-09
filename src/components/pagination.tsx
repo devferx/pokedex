@@ -50,8 +50,8 @@ export const Pagination: React.FC<Props> = ({ totalPages }) => {
               <ChevronLeft />
             </Link>
           </li>
-          {allPages.map((page) => (
-            <li key={`page-${page}`}>
+          {allPages.map((page, idx) => (
+            <li key={`page-${page}-${idx}`}>
               <Link
                 className={clsx(
                   'relative block rounded border-0 px-3 py-1.5 text-gray-800 outline-none transition-all duration-300 hover:text-gray-800 focus:shadow-none',
