@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 
-import { Pagination } from '@/components/pagination'
+import { Pagination } from '@/domains/home/components/pagination'
+import { Card, CardContent, CardFooter, CardTitle } from '@/components/ui/card'
 import { getPokemonByPage } from '@/services/pokemon.service'
 
 interface Props {
@@ -18,14 +19,20 @@ export default async function Home({ searchParams }: Props) {
       <section className="grid grid-cols-6 gap-4">
         {pokemons.map((pokemon) => (
           <Link key={pokemon.id} href={`/pokemon/${pokemon.name}`}>
-            <article className="flex flex-col items-center rounded border border-gray-500 p-4">
-              <img
-                className="w-full"
-                src={pokemon.imageSrc}
-                alt={pokemon.name}
-              />
-              <p className="capitalize">{pokemon.name}</p>
-            </article>
+            <Card>
+              <CardContent>
+                <img
+                  className="w-full"
+                  src={pokemon.imageSrc}
+                  alt={pokemon.name}
+                />
+              </CardContent>
+              <CardFooter>
+                <CardTitle className="mx-auto capitalize">
+                  {pokemon.name}
+                </CardTitle>
+              </CardFooter>
+            </Card>
           </Link>
         ))}
       </section>
