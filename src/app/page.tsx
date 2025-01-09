@@ -1,13 +1,35 @@
-import { getPokemons } from '@/services/pokemon.service'
+/* eslint-disable @next/next/no-img-element */
+import Link from 'next/link'
 
-export default async function Home() {
-  const pokemons = await getPokemons()
+import { Pagination } from '@/components/pagination'
+import { getPokemonByPage } from '@/services/pokemon.service'
+
+interface Props {
+  searchParams: Promise<{ page: string }>
+}
+
+export default async function Home({ searchParams }: Props) {
+  const { page } = await searchParams
+  const currentPage = isNaN(Number(page)) ? 1 : Number(page)
+  const pokemons = await getPokemonByPage(currentPage)
 
   return (
-    <section className="grid grid-cols-4">
-      <pre>
-        <code>{JSON.stringify(pokemons, null, 2)}</code>
-      </pre>
-    </section>
+    <main className="container mx-auto my-5">
+      <section className="grid grid-cols-6 gap-4">
+        {pokemons.map((pokemon) => (
+          <Link key={pokemon.id} href={`/pokemon/${pokemon.name}`}>
+            <article className="flex flex-col items-center rounded border border-gray-500 p-4">
+              <img
+                className="w-full"
+                src={pokemon.imageSrc}
+                alt={pokemon.name}
+              />
+              <p className="capitalize">{pokemon.name}</p>
+            </article>
+          </Link>
+        ))}
+      </section>
+      <Pagination totalPages={20} />
+    </main>
   )
 }
