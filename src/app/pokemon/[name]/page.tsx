@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { getSinglePokemon } from '@/services/pokemon.service'
+import { getPokemons, getSinglePokemon } from '@/services/pokemon.service'
 
 import { BackButton } from '@/domains/single-pokemon/components/back-button'
 import { Badge } from '@/domains/single-pokemon/components/badge'
@@ -12,6 +12,13 @@ import { getPokemonImage } from '@/utils/get-pokemon-image'
 
 import { getPokemonColorsByTypes } from '@/utils/pokemon-colors'
 import { PokemonMoves } from '@/domains/single-pokemon/components/pokemon-moves'
+
+export const revalidate = 0
+export const dynamicParams = true
+export const generateStaticParams = async () => {
+  const pokemonsNames = await getPokemons(151, 0)
+  return pokemonsNames.map(({ name }) => ({ name }))
+}
 
 interface Props {
   params: Promise<{ name: string }>
