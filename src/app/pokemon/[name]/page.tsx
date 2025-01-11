@@ -5,7 +5,7 @@ import { getSinglePokemon } from '@/services/pokemon.service'
 import { BackButton } from '@/domains/single-pokemon/components/back-button'
 import { Badge } from '@/domains/single-pokemon/components/badge'
 import { PokemonDetails } from '@/domains/single-pokemon/components/pokemon-details'
-import { Stat } from '@/domains/single-pokemon/components/stat'
+import { PokemonStat } from '@/domains/single-pokemon/components/pokemon-stat'
 import { Title } from '@/domains/single-pokemon/components/title'
 
 import { getPokemonImage } from '@/utils/get-pokemon-image'
@@ -57,7 +57,11 @@ export default async function PokemonPage({ params }: Props) {
 
             <div className="flex flex-col">
               {pokemon.stats.map((stat) => (
-                <Stat key={stat.stat.name} stat={stat} color={primaryColor} />
+                <PokemonStat
+                  key={stat.stat.name}
+                  stat={stat}
+                  color={primaryColor}
+                />
               ))}
             </div>
           </div>
