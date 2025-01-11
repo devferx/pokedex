@@ -2,8 +2,8 @@ import Link from 'next/link'
 
 import { Pagination } from '@/domains/home/components/pagination'
 
-import { getPokemonByPage } from '@/services/pokemon.service'
 import { PokemonCard } from '@/domains/home/components/pokemon-card'
+import { getPokemonByPage } from '@/services/pokemon.service'
 
 interface Props {
   searchParams: Promise<{ page: string }>
