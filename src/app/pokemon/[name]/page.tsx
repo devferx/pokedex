@@ -13,7 +13,7 @@ import { getPokemonImage } from '@/utils/get-pokemon-image'
 import { getPokemonColorsByTypes } from '@/utils/pokemon-colors'
 import { PokemonMoves } from '@/domains/single-pokemon/components/pokemon-moves'
 
-export const revalidate = 0
+export const revalidate = false
 export const dynamicParams = true
 export const generateStaticParams = async () => {
   const pokemonsNames = await getPokemons(151, 0)
