@@ -2,9 +2,11 @@ import axios from 'axios'
 
 import { adaptRawPokemon } from '@/adapters/adapt-raw-pokemon'
 
-import type { PokemonDetailsResponse } from '@/interfaces/get-pokemon-details-response'
-import type { GetPokemonsResponse } from '@/interfaces/get-pokemons-response'
 import type { Pokemon } from '@/models/pokemon'
+
+import type { PokemonDetailsResponse } from '@/interfaces/get-pokemon-details-response'
+import type { PokemonMoveResponse } from '@/interfaces/get-pokemon-move-response'
+import type { GetPokemonsResponse } from '@/interfaces/get-pokemons-response'
 
 const pokeApi = axios.create({
   baseURL: 'https://pokeapi.co/api/v2',
@@ -35,5 +37,10 @@ export const getPokemonByPage = async (
 
 export const getSinglePokemon = async (name: string) => {
   const { data } = await pokeApi.get<PokemonDetailsResponse>(`/pokemon/${name}`)
+  return data
+}
+
+export const getPokemonMove = async (name: string) => {
+  const { data } = await pokeApi.get<PokemonMoveResponse>(`/move/${name}`)
   return data
 }
