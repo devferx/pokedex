@@ -2,6 +2,7 @@ import axios from 'axios'
 
 import { adaptRawPokemon } from '@/adapters/adapt-raw-pokemon'
 
+import type { PokemonDetailsResponse } from '@/interfaces/get-pokemon-details-response'
 import type { GetPokemonsResponse } from '@/interfaces/get-pokemons-response'
 import type { Pokemon } from '@/models/pokemon'
 
@@ -30,4 +31,9 @@ export const getPokemonByPage = async (
 
   const pokemons = await getPokemons(limit, offset)
   return pokemons
+}
+
+export const getSinglePokemon = async (name: string) => {
+  const { data } = await pokeApi.get<PokemonDetailsResponse>(`/pokemon/${name}`)
+  return data
 }
