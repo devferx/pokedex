@@ -11,6 +11,7 @@ import { Title } from '@/domains/single-pokemon/components/title'
 import { getPokemonImage } from '@/utils/get-pokemon-image'
 
 import { getPokemonColorsByTypes } from '@/utils/pokemon-colors'
+import { PokemonMoves } from '@/domains/single-pokemon/components/pokemon-moves'
 
 interface Props {
   params: Promise<{ name: string }>
@@ -75,13 +76,7 @@ export default async function PokemonPage({ params }: Props) {
         <section className="mt-5">
           <Title bgColor={primaryColor}>Moves</Title>
 
-          <ul>
-            {pokemon.moves.map(({ move }) => (
-              <li className="capitalize" key={move.name}>
-                {move.name}
-              </li>
-            ))}
-          </ul>
+          <PokemonMoves moves={pokemon.moves} />
         </section>
       </div>
     </div>
