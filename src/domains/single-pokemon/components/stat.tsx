@@ -1,5 +1,6 @@
 import { Progress } from '@/components/ui/progress'
-import { Stat as StatI } from '@/interfaces/get-pokemon-details-response'
+
+import type { Stat as StatI } from '@/interfaces/get-pokemon-details-response'
 
 interface Props {
   stat: StatI

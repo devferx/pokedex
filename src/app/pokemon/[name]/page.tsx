@@ -4,10 +4,10 @@ import { getSinglePokemon } from '@/services/pokemon.service'
 
 import { BackButton } from '@/domains/single-pokemon/components/back-button'
 import { Badge } from '@/domains/single-pokemon/components/badge'
-import { Stat } from '@/domains/single-pokemon/components/stat'
-
 import { PokemonDetails } from '@/domains/single-pokemon/components/pokemon-details'
+import { Stat } from '@/domains/single-pokemon/components/stat'
 import { Title } from '@/domains/single-pokemon/components/title'
+
 import { getPokemonImage } from '@/utils/get-pokemon-image'
 
 import { getPokemonColorsByTypes } from '@/utils/pokemon-colors'

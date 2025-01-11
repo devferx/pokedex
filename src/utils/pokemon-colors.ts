@@ -1,4 +1,4 @@
-import { Type } from '@/interfaces/get-pokemon-details-response'
+import type { Type } from '@/interfaces/get-pokemon-details-response'
 
 const COLORS = {
   bug: '#97A51D',
