@@ -2,7 +2,7 @@ import axios from 'axios'
 
 import { adaptRawPokemon } from '@/adapters/adapt-raw-pokemon'
 
-import type { Pokemon } from '@/models/pokemon'
+import type { PokemonOverview } from '@/models/pokemon-overview'
 
 import type { PokemonDetailsResponse } from '@/interfaces/get-pokemon-details-response'
 import type { PokemonMoveResponse } from '@/interfaces/get-pokemon-move-response'
@@ -15,7 +15,7 @@ const pokeApi = axios.create({
 export const getPokemons = async (
   limit = 20,
   offset = 0,
-): Promise<Pokemon[]> => {
+): Promise<PokemonOverview[]> => {
   const { data } = await pokeApi.get<GetPokemonsResponse>('/pokemon', {
     params: { limit, offset },
   })
@@ -27,7 +27,7 @@ export const getPokemons = async (
 export const getPokemonByPage = async (
   page: number,
   itemsPerPage = 30,
-): Promise<Pokemon[]> => {
+): Promise<PokemonOverview[]> => {
   const limit = itemsPerPage
   const offset = (page - 1) * limit
 

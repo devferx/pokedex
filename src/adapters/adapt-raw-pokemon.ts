@@ -1,8 +1,8 @@
 import type { RawPokemon } from '@/interfaces/get-pokemons-response'
-import type { Pokemon } from '@/models/pokemon'
+import type { PokemonOverview } from '@/models/pokemon-overview'
 
-export const adaptRawPokemon = (results: RawPokemon[]): Pokemon[] => {
-  const pokemons = results.map((pokemon): Pokemon => {
+export const adaptRawPokemon = (results: RawPokemon[]): PokemonOverview[] => {
+  const pokemons = results.map((pokemon): PokemonOverview => {
     const urlParts = pokemon.url.split('/')
     const id = urlParts.at(-2)!
 

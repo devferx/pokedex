@@ -11,10 +11,10 @@ import { PokemonCard } from '@/domains/home/components/pokemon-card'
 
 import { searchPokemonsByName } from '../utils/search-pokemonts'
 
-import type { Pokemon } from '@/models/pokemon'
+import type { PokemonOverview } from '@/models/pokemon-overview'
 
 interface Props {
-  pokemons: Pokemon[]
+  pokemons: PokemonOverview[]
   query?: string
 }
 

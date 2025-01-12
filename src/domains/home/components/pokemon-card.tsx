@@ -1,8 +1,9 @@
 import { Card, CardContent, CardFooter, CardTitle } from '@/components/ui/card'
-import { Pokemon } from '@/models/pokemon'
+
+import type { PokemonOverview } from '@/models/pokemon-overview'
 
 interface Props {
-  pokemon: Pokemon
+  pokemon: PokemonOverview
 }
 
 export const PokemonCard: React.FC<Props> = ({ pokemon }) => {

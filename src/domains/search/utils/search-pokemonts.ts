@@ -1,6 +1,9 @@
-import { Pokemon } from '@/models/pokemon'
+import type { PokemonOverview } from '@/models/pokemon-overview'
 
-export const searchPokemonsByName = (query: string, pokemons: Pokemon[]) => {
+export const searchPokemonsByName = (
+  query: string,
+  pokemons: PokemonOverview[],
+) => {
   const queryIsEmpty = query.trim().length === 0
 
   const filteredPokemons = queryIsEmpty
