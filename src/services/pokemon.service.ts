@@ -2,7 +2,10 @@ import axios from 'axios'
 
 import { adaptRawPokemon } from '@/adapters/adapt-raw-pokemon'
 
+import { getPokemonImage } from '@/utils/get-pokemon-image'
+
 import type { PokemonOverview } from '@/models/pokemon-overview'
+import type { Pokemon } from '@/models/pokemon'
 
 import type { PokemonDetailsResponse } from '@/interfaces/get-pokemon-details-response'
 import type { PokemonMoveResponse } from '@/interfaces/get-pokemon-move-response'
@@ -45,15 +48,23 @@ export const getPokemonMove = async (name: string) => {
   return data
 }
 
-export const getDetailedPokemons = async (
+// TODO: create a adapter for the formatted pokemons
+export const getPokemonsInfo = async (
   limit = 20,
   offset = 0,
-): Promise<PokemonDetailsResponse[]> => {
+): Promise<Pokemon[]> => {
   const pokemons = await getPokemons(limit, offset)
   const pokemonFetchTasks = pokemons.map(async (pokemon) =>
     getSinglePokemon(pokemon.name),
   )
 
   const detailedPokemons = await Promise.all(pokemonFetchTasks)
-  return detailedPokemons
+  const formattedPokemons = detailedPokemons.map((pokemon) => ({
+    id: pokemon.id,
+    name: pokemon.name,
+    types: pokemon.types.map(({ type }) => type.name),
+    imageSrc: getPokemonImage(pokemon.id),
+  }))
+
+  return formattedPokemons
 }
