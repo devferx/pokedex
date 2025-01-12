@@ -1,7 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import type { Metadata } from 'next'
 
-import { getPokemons, getSinglePokemon } from '@/services/pokemon.service'
+import {
+  getPokemonsOverview,
+  getSinglePokemon,
+} from '@/services/pokemon.service'
 
 import { BackButton } from '@/domains/single-pokemon/components/back-button'
 import { Badge } from '@/domains/single-pokemon/components/badge'
@@ -18,7 +21,7 @@ export const revalidate = false
 export const dynamicParams = true
 
 export const generateStaticParams = async () => {
-  const pokemonsNames = await getPokemons(151, 0)
+  const pokemonsNames = await getPokemonsOverview(151, 0)
   return pokemonsNames.map(({ name }) => ({ name }))
 }
 

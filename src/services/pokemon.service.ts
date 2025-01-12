@@ -15,7 +15,7 @@ const pokeApi = axios.create({
   baseURL: 'https://pokeapi.co/api/v2',
 })
 
-export const getPokemons = async (
+export const getPokemonsOverview = async (
   limit = 20,
   offset = 0,
 ): Promise<PokemonOverview[]> => {
@@ -27,14 +27,14 @@ export const getPokemons = async (
   return pokemons
 }
 
-export const getPokemonByPage = async (
+export const getPokemonOverviewByPage = async (
   page: number,
   itemsPerPage = 30,
 ): Promise<PokemonOverview[]> => {
   const limit = itemsPerPage
   const offset = (page - 1) * limit
 
-  const pokemons = await getPokemons(limit, offset)
+  const pokemons = await getPokemonsOverview(limit, offset)
   return pokemons
 }
 
@@ -49,11 +49,11 @@ export const getPokemonMove = async (name: string) => {
 }
 
 // TODO: create a adapter for the formatted pokemons
-export const getPokemonsInfo = async (
+export const getPokemons = async (
   limit = 20,
   offset = 0,
 ): Promise<Pokemon[]> => {
-  const pokemons = await getPokemons(limit, offset)
+  const pokemons = await getPokemonsOverview(limit, offset)
   const pokemonFetchTasks = pokemons.map(async (pokemon) =>
     getSinglePokemon(pokemon.name),
   )
@@ -67,4 +67,15 @@ export const getPokemonsInfo = async (
   }))
 
   return formattedPokemons
+}
+
+export const getPokemonsByPage = async (
+  page: number,
+  itemsPerPage = 30,
+): Promise<Pokemon[]> => {
+  const limit = itemsPerPage
+  const offset = (page - 1) * limit
+
+  const pokemons = await getPokemons(limit, offset)
+  return pokemons
 }
