@@ -27,8 +27,12 @@ export const getColorByType = (type: string) => {
   return color
 }
 
-export const getPokemonColorsByTypes = (types: Type[]) => {
-  const typesNames = types.map((type) => type.type.name)
+export const getPokemonColorsByTypes = (types: Type[] | string[]) => {
+  const typesNames =
+    Array.isArray(types) && typeof types[0] === 'string'
+      ? (types as string[])
+      : (types as Type[]).map(({ type }) => type.name)
+
   const colors = typesNames.map((type) => getColorByType(type))
 
   const primaryColor = colors[0]

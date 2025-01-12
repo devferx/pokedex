@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { getPokemonOverviewByPage } from '@/services/pokemon.service'
+import { getPokemonsByPage } from '@/services/pokemon.service'
 
 import { AppMenuBtn } from '@/components/app-menu-btn'
 import { Pagination } from '@/domains/home/components/pagination'
@@ -13,7 +13,7 @@ interface Props {
 export default async function Home({ searchParams }: Props) {
   const { page } = await searchParams
   const currentPage = isNaN(Number(page)) ? 1 : Number(page)
-  const pokemons = await getPokemonOverviewByPage(currentPage)
+  const pokemons = await getPokemonsByPage(currentPage)
 
   return (
     <main className="container mx-auto my-5 px-5">

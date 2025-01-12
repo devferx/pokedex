@@ -1,21 +1,31 @@
-import { Card, CardContent, CardFooter, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardTitle } from '@/components/ui/card'
 
-import type { PokemonOverview } from '@/models/pokemon-overview'
+import { Badge } from '@/domains/home/components/badge'
+import { getPokemonColorsByTypes } from '@/utils/pokemon-colors'
+
+import type { Pokemon } from '@/models/pokemon'
 
 interface Props {
-  pokemon: PokemonOverview
+  pokemon: Pokemon
 }
 
 export const PokemonCard: React.FC<Props> = ({ pokemon }) => {
+  const { background } = getPokemonColorsByTypes(pokemon.types)
+
   return (
-    <Card>
-      <CardContent>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
+    <Card className="overflow-hidden">
+      <div className="h-fit w-full" style={{ background }}>
         <img className="w-full" src={pokemon.imageSrc} alt={pokemon.name} />
-      </CardContent>
-      <CardFooter>
+      </div>
+
+      <CardContent className="mt-5 flex-col">
         <CardTitle className="mx-auto capitalize">{pokemon.name}</CardTitle>
-      </CardFooter>
+        <div className="mt-2 flex gap-1">
+          {pokemon.types.map((type) => (
+            <Badge key={type} type={type} />
+          ))}
+        </div>
+      </CardContent>
     </Card>
   )
 }
