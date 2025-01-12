@@ -1,24 +1,38 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { usePathname, useSearchParams, useRouter } from 'next/navigation'
+
+import { useDebounce } from '../hooks/use-debounce'
 
 import { Input } from '@/components/ui/input'
 import { PokemonCard } from '@/domains/home/components/pokemon-card'
 
 import type { Pokemon } from '@/models/pokemon'
-import { useDebounce } from '../hooks/use-debounce'
 
 interface Props {
   pokemons: Pokemon[]
+  query?: string
 }
 
-export const SearchView = ({ pokemons }: Props) => {
-  const [query, setQuery] = useState('')
-  const { debouncedValue } = useDebounce(query, 500)
+export const SearchView = ({ pokemons, query = '' }: Props) => {
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
+  const [queryInput, setQueryInput] = useState(query)
+  const { debouncedValue } = useDebounce(queryInput, 500)
+
+  useEffect(() => {
+    const newSearchParams = new URLSearchParams(searchParams)
+    newSearchParams.set('query', debouncedValue)
+
+    const newUrl = `${pathname}?${newSearchParams.toString()}`
+    router.replace(newUrl)
+  }, [debouncedValue, pathname, router, searchParams])
 
   const queryIsEmpty = debouncedValue.trim().length === 0
-
   const filteredPokemons = queryIsEmpty
     ? []
     : pokemons.filter((pokemon) =>
@@ -28,14 +42,14 @@ export const SearchView = ({ pokemons }: Props) => {
       )
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value)
+    setQueryInput(event.target.value)
   }
 
   return (
     <section className="mt-5">
       <Input
         placeholder="Search a Pokemon..."
-        value={query}
+        value={queryInput}
         onChange={handleSearch}
       />
 
