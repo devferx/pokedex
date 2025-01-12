@@ -7,7 +7,7 @@ import { useDebounce } from '../hooks/use-debounce'
 import { useUpdateSearchQuery } from '../hooks/use-update-search-query'
 
 import { Input } from '@/components/ui/input'
-import { PokemonCard } from '@/domains/home/components/pokemon-card'
+import { PokemonCard } from '@/domains/search/components/pokemon-card'
 
 import { searchPokemonsByName } from '../utils/search-pokemonts'
 

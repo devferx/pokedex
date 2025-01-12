@@ -15,6 +15,7 @@ export const PokemonCard: React.FC<Props> = ({ pokemon }) => {
   return (
     <Card className="overflow-hidden">
       <div className="h-fit w-full" style={{ background }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="w-full" src={pokemon.imageSrc} alt={pokemon.name} />
       </div>
 
