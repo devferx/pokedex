@@ -1,9 +1,10 @@
 import Link from 'next/link'
 
-import { Pagination } from '@/domains/home/components/pagination'
-
-import { PokemonCard } from '@/domains/home/components/pokemon-card'
 import { getPokemonByPage } from '@/services/pokemon.service'
+
+import { AppMenuBtn } from '@/components/app-menu-btn'
+import { Pagination } from '@/domains/home/components/pagination'
+import { PokemonCard } from '@/domains/home/components/pokemon-card'
 
 interface Props {
   searchParams: Promise<{ page: string }>
@@ -15,7 +16,9 @@ export default async function Home({ searchParams }: Props) {
   const pokemons = await getPokemonByPage(currentPage)
 
   return (
-    <main className="container mx-auto my-5">
+    <main className="container mx-auto my-5 px-5">
+      <AppMenuBtn />
+
       <section className="grid grid-cols-6 gap-4">
         {pokemons.map((pokemon) => (
           <Link key={pokemon.id} href={`/pokemon/${pokemon.name}`}>
