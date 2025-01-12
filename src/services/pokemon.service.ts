@@ -44,3 +44,16 @@ export const getPokemonMove = async (name: string) => {
   const { data } = await pokeApi.get<PokemonMoveResponse>(`/move/${name}`)
   return data
 }
+
+export const getDetailedPokemons = async (
+  limit = 20,
+  offset = 0,
+): Promise<PokemonDetailsResponse[]> => {
+  const pokemons = await getPokemons(limit, offset)
+  const pokemonFetchTasks = pokemons.map(async (pokemon) =>
+    getSinglePokemon(pokemon.name),
+  )
+
+  const detailedPokemons = await Promise.all(pokemonFetchTasks)
+  return detailedPokemons
+}
