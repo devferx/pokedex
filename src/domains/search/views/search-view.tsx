@@ -1,13 +1,15 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { usePathname, useSearchParams, useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 import { useDebounce } from '../hooks/use-debounce'
+import { useUpdateSearchQuery } from '../hooks/use-update-search-query'
 
 import { Input } from '@/components/ui/input'
 import { PokemonCard } from '@/domains/home/components/pokemon-card'
+
+import { searchPokemonsByName } from '../utils/search-pokemonts'
 
 import type { Pokemon } from '@/models/pokemon'
 
@@ -17,29 +19,11 @@ interface Props {
 }
 
 export const SearchView = ({ pokemons, query = '' }: Props) => {
-  const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-
   const [queryInput, setQueryInput] = useState(query)
   const { debouncedValue } = useDebounce(queryInput, 500)
+  const { filteredPokemons } = searchPokemonsByName(debouncedValue, pokemons)
 
-  useEffect(() => {
-    const newSearchParams = new URLSearchParams(searchParams)
-    newSearchParams.set('query', debouncedValue)
-
-    const newUrl = `${pathname}?${newSearchParams.toString()}`
-    router.replace(newUrl)
-  }, [debouncedValue, pathname, router, searchParams])
-
-  const queryIsEmpty = debouncedValue.trim().length === 0
-  const filteredPokemons = queryIsEmpty
-    ? []
-    : pokemons.filter((pokemon) =>
-        pokemon.name
-          .toLocaleLowerCase()
-          .includes(debouncedValue.toLocaleLowerCase()),
-      )
+  useUpdateSearchQuery(debouncedValue)
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQueryInput(event.target.value)
