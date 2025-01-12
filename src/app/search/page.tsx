@@ -1,3 +1,5 @@
+import type { Metadata } from 'next'
+
 import { getPokemons } from '@/services/pokemon.service'
 
 import { AppMenuBtn } from '@/components/app-menu-btn'
@@ -5,6 +7,10 @@ import { SearchView } from '@/domains/search/views/search-view'
 
 interface Props {
   searchParams: Promise<{ query: string }>
+}
+
+export const metadata: Metadata = {
+  title: 'Search',
 }
 
 export default async function SearchPokemonPage({ searchParams }: Props) {

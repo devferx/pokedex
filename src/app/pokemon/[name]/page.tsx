@@ -1,27 +1,46 @@
 /* eslint-disable @next/next/no-img-element */
+import type { Metadata } from 'next'
 
 import { getPokemons, getSinglePokemon } from '@/services/pokemon.service'
 
 import { BackButton } from '@/domains/single-pokemon/components/back-button'
 import { Badge } from '@/domains/single-pokemon/components/badge'
 import { PokemonDetails } from '@/domains/single-pokemon/components/pokemon-details'
+import { PokemonMoves } from '@/domains/single-pokemon/components/pokemon-moves'
 import { PokemonStat } from '@/domains/single-pokemon/components/pokemon-stat'
 import { Title } from '@/domains/single-pokemon/components/title'
 
 import { getPokemonImage } from '@/utils/get-pokemon-image'
-
 import { getPokemonColorsByTypes } from '@/utils/pokemon-colors'
-import { PokemonMoves } from '@/domains/single-pokemon/components/pokemon-moves'
+import { capitalize } from '@/utils/string'
 
 export const revalidate = false
 export const dynamicParams = true
+
 export const generateStaticParams = async () => {
   const pokemonsNames = await getPokemons(151, 0)
   return pokemonsNames.map(({ name }) => ({ name }))
 }
 
-interface Props {
+export interface Props {
   params: Promise<{ name: string }>
+}
+
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const { name } = await props.params
+  const pokemon = await getSinglePokemon(name)
+
+  return {
+    title: capitalize(name),
+    description: `Pokemon ${capitalize(name)} is a ${pokemon.types
+      .map((type) => type.type.name)
+      .join(
+        ', ',
+      )} type Pokemon. It has a base experience of ${pokemon.base_experience}.`,
+    openGraph: {
+      images: [{ url: getPokemonImage(pokemon.id), alt: capitalize(name) }],
+    },
+  }
 }
 
 export default async function PokemonPage({ params }: Props) {
@@ -82,7 +101,6 @@ export default async function PokemonPage({ params }: Props) {
 
         <section className="mt-5">
           <Title bgColor={primaryColor}>Moves</Title>
-
           <PokemonMoves moves={pokemon.moves} />
         </section>
       </div>
