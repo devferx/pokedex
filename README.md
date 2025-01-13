@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<h1 align="center">Welcome to Pokedex 👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
+  <a href="https://twitter.com/devferx" target="_blank">
+    <img alt="Twitter: devferx" src="https://img.shields.io/twitter/follow/devferx.svg?style=social" />
+  </a>
+</p>
 
-## Getting Started
+> This project is a Pokémon information page built with Next.js, featuring detailed Pokémon data, filtering by type, and a responsive search bar. Leveraging PokeAPI, the application fetches data dynamically and optimizes performance through static generation, image optimization, and code splitting. With a focus on user experience and speed, it achieved a 100% performance score on PageSpeed Insights for mobile devices, making it both efficient and highly responsive.
 
-First, run the development server:
+### 🏠 [Homepage](https://pokedex-devferx.vercel.app)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
+### ✨ [Demo](https://pokedex-devferx.vercel.app)
+
+## Install
+
+```sh
+bun install
+```
+
+## Usage
+
+```sh
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Author
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+👤 **Fernando Quinteros Gutierrez**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Twitter: [@devferx](https://twitter.com/devferx)
+- LinkedIn: [@devferx](https://linkedin.com/in/devferx)
+- Github: [@devferx](https://github.com/devferx)
 
-## Learn More
+## 🤝 Contributing
 
-To learn more about Next.js, take a look at the following resources:
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/devferx/pokedex/issues).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Show your support
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Give a ⭐️ if this project helped you!
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
