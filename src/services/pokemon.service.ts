@@ -87,7 +87,10 @@ export const getPokemonTypes = async () => {
   return data.results
 }
 
-export const getPokemonsByType = async (type: string) => {
+export const getPokemonsByType = async (type?: string) => {
+  if (!type) return []
+  if (type === '') return []
+
   const { data } = await pokeApi.get<GetPokemonTypeResponse>(`/type/${type}`)
 
   const rawPokemons = data.pokemon.map(({ pokemon }) => pokemon)
