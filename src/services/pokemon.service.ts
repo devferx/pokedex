@@ -11,6 +11,7 @@ import type { PokemonDetailsResponse } from '@/interfaces/get-pokemon-details-re
 import type { PokemonMoveResponse } from '@/interfaces/get-pokemon-move-response'
 import type { GetPokemonTypesResponse } from '@/interfaces/get-pokemon-types-response'
 import type { GetPokemonsResponse } from '@/interfaces/get-pokemons-response'
+import { GetPokemonTypeResponse } from '@/interfaces/get-pokemon-type-reponse'
 
 const pokeApi = axios.create({
   baseURL: 'https://pokeapi.co/api/v2',
@@ -84,4 +85,13 @@ export const getPokemonsByPage = async (
 export const getPokemonTypes = async () => {
   const { data } = await pokeApi.get<GetPokemonTypesResponse>('/type')
   return data.results
+}
+
+export const getPokemonsByType = async (type: string) => {
+  const { data } = await pokeApi.get<GetPokemonTypeResponse>(`/type/${type}`)
+
+  const rawPokemons = data.pokemon.map(({ pokemon }) => pokemon)
+  const pokemons = adaptRawPokemon(rawPokemons)
+
+  return pokemons
 }
