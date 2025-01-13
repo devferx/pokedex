@@ -1,15 +1,13 @@
 import axios from 'axios'
 
-import { adaptRawPokemon } from '@/adapters/adapt-raw-pokemon'
-
-import { getPokemonImage } from '@/utils/get-pokemon-image'
+import { PokemonAdapter } from '@/adapters/pokemon.adapter'
 
 import type { Pokemon } from '@/models/pokemon'
 import type { PokemonOverview } from '@/models/pokemon-overview'
 
 import type { PokemonDetailsResponse } from '@/interfaces/get-pokemon-details-response'
 import type { PokemonMoveResponse } from '@/interfaces/get-pokemon-move-response'
-import { GetPokemonTypeResponse } from '@/interfaces/get-pokemon-type-reponse'
+import type { GetPokemonTypeResponse } from '@/interfaces/get-pokemon-type-reponse'
 import type {
   GetPokemonTypesResponse,
   TypeOverview,
@@ -28,7 +26,7 @@ export const getPokemonsOverview = async (
     params: { limit, offset },
   })
 
-  const pokemons = adaptRawPokemon(data.results)
+  const pokemons = PokemonAdapter.toPokemonOverview(data.results)
   return pokemons
 }
 
@@ -53,25 +51,25 @@ export const getPokemonMove = async (name: string) => {
   return data
 }
 
-// TODO: create a adapter for the formatted pokemons
-export const getPokemons = async (
-  limit = 20,
-  offset = 0,
+export const getPokemonsByOverviews = async (
+  pokemonOverviews: PokemonOverview[],
 ): Promise<Pokemon[]> => {
-  const pokemons = await getPokemonsOverview(limit, offset)
-  const pokemonFetchTasks = pokemons.map(async (pokemon) =>
+  const pokemonFetchTasks = pokemonOverviews.map(async (pokemon) =>
     getSinglePokemon(pokemon.name),
   )
 
   const detailedPokemons = await Promise.all(pokemonFetchTasks)
-  const formattedPokemons = detailedPokemons.map((pokemon) => ({
-    id: pokemon.id,
-    name: pokemon.name,
-    types: pokemon.types.map(({ type }) => type.name),
-    imageSrc: getPokemonImage(pokemon.id),
-  }))
+  const pokemons = PokemonAdapter.toPokemon(detailedPokemons)
 
-  return formattedPokemons
+  return pokemons
+}
+
+export const getPokemons = async (
+  limit = 20,
+  offset = 0,
+): Promise<Pokemon[]> => {
+  const pokemonOverviews = await getPokemonsOverview(limit, offset)
+  return getPokemonsByOverviews(pokemonOverviews)
 }
 
 export const getPokemonsByPage = async (
@@ -92,14 +90,15 @@ export const getPokemonTypes = async (): Promise<TypeOverview[]> => {
   return sortedTypes
 }
 
-export const getPokemonsByType = async (type?: string) => {
+export const getPokemonsByType = async (type?: string): Promise<Pokemon[]> => {
   if (!type) return []
   if (type === '') return []
 
   const { data } = await pokeApi.get<GetPokemonTypeResponse>(`/type/${type}`)
 
   const rawPokemons = data.pokemon.map(({ pokemon }) => pokemon)
-  const pokemons = adaptRawPokemon(rawPokemons)
+  const pokemonOverviews = PokemonAdapter.toPokemonOverview(rawPokemons)
+  const pokemons = await getPokemonsByOverviews(pokemonOverviews)
 
   return pokemons
 }
