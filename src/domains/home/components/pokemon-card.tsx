@@ -18,11 +18,11 @@ export const PokemonCard: React.FC<Props> = ({ pokemon }) => {
     <Card className="overflow-hidden">
       <div className="h-fit w-full" style={{ background }}>
         <Image
-          width={150}
-          height={150}
           className="w-full"
           src={pokemon.imageSrc}
           alt={pokemon.name}
+          width={250}
+          height={250}
         />
       </div>
 
