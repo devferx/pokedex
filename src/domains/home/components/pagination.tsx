@@ -46,6 +46,7 @@ export const Pagination: React.FC<Props> = ({ totalPages }) => {
             <Link
               className="relative block rounded border-0 bg-transparent px-3 py-1.5 text-gray-800 outline-none transition-all duration-300 hover:bg-gray-200 hover:text-gray-800 focus:shadow-none"
               href={createPageUrl(currentPage - 1)}
+              aria-label="Previous"
             >
               <ChevronLeft />
             </Link>
@@ -60,6 +61,7 @@ export const Pagination: React.FC<Props> = ({ totalPages }) => {
                     : 'bg-transparent hover:bg-gray-300',
                 )}
                 href={createPageUrl(page)}
+                aria-label={`Page ${page}`}
               >
                 {page}
               </Link>
@@ -67,12 +69,13 @@ export const Pagination: React.FC<Props> = ({ totalPages }) => {
           ))}
 
           <li>
-            <a
+            <Link
               className="relative block rounded border-0 bg-transparent px-3 py-1.5 text-gray-800 outline-none transition-all duration-300 hover:bg-gray-200 hover:text-gray-800 focus:shadow-none"
               href={createPageUrl(currentPage + 1)}
+              aria-label="Next"
             >
               <ChevronRight />
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>

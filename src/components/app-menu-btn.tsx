@@ -8,7 +8,7 @@ export const AppMenuBtn = () => {
   const { toggleSidebar } = useSidebar()
 
   return (
-    <button onClick={toggleSidebar}>
+    <button onClick={toggleSidebar} aria-label="Toggle sidebar">
       <Menu />
     </button>
   )
