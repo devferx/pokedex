@@ -9,9 +9,12 @@ import type { PokemonOverview } from '@/models/pokemon-overview'
 
 import type { PokemonDetailsResponse } from '@/interfaces/get-pokemon-details-response'
 import type { PokemonMoveResponse } from '@/interfaces/get-pokemon-move-response'
-import type { GetPokemonTypesResponse } from '@/interfaces/get-pokemon-types-response'
-import type { GetPokemonsResponse } from '@/interfaces/get-pokemons-response'
 import { GetPokemonTypeResponse } from '@/interfaces/get-pokemon-type-reponse'
+import type {
+  GetPokemonTypesResponse,
+  TypeOverview,
+} from '@/interfaces/get-pokemon-types-response'
+import type { GetPokemonsResponse } from '@/interfaces/get-pokemons-response'
 
 const pokeApi = axios.create({
   baseURL: 'https://pokeapi.co/api/v2',
@@ -82,9 +85,11 @@ export const getPokemonsByPage = async (
   return pokemons
 }
 
-export const getPokemonTypes = async () => {
+export const getPokemonTypes = async (): Promise<TypeOverview[]> => {
   const { data } = await pokeApi.get<GetPokemonTypesResponse>('/type')
-  return data.results
+  const sortedTypes = data.results.sort((a, b) => a.name.localeCompare(b.name))
+
+  return sortedTypes
 }
 
 export const getPokemonsByType = async (type?: string) => {

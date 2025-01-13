@@ -3,19 +3,33 @@
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
+import { Button } from '@/components/ui/button'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+
 import type { TypeOverview } from '@/interfaces/get-pokemon-types-response'
+import { capitalize } from '@/utils/string'
 
 interface Props {
   types: TypeOverview[]
+  initialType?: string
 }
 
-export const SelectPokemonTypes: React.FC<Props> = ({ types }) => {
+export const SelectPokemonTypes: React.FC<Props> = ({
+  types,
+  initialType = '',
+}) => {
   const router = useRouter()
 
-  const [currentType, setCurrentType] = useState('')
+  const [currentType, setCurrentType] = useState(initialType)
 
-  const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setCurrentType(event.target.value)
+  const onChange = (newValue: string) => {
+    setCurrentType(newValue)
   }
 
   const onHandleClick = () => {
@@ -25,15 +39,20 @@ export const SelectPokemonTypes: React.FC<Props> = ({ types }) => {
 
   return (
     <div className="flex gap-4">
-      <select className="capitalize" value={currentType} onChange={onChange}>
-        <option value="">Select a type</option>
-        {types.map((type) => (
-          <option className="capitalize" key={type.name} value={type.name}>
-            {type.name}
-          </option>
-        ))}
-      </select>
-      <button onClick={onHandleClick}>Filter</button>
+      <Select value={currentType} onValueChange={onChange}>
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Select a type" />
+        </SelectTrigger>
+        <SelectContent>
+          {types.map((type) => (
+            <SelectItem key={type.name} value={type.name}>
+              {capitalize(type.name)}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+
+      <Button onClick={onHandleClick}>Filter</Button>
     </div>
   )
 }

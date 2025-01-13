@@ -17,10 +17,10 @@ export default async function FilterPokemonsPage({ searchParams }: Props) {
   const pokemons = await getPokemonsByType(type)
 
   return (
-    <main className="container mx-auto my-5 px-5">
+    <main className="container mx-auto my-5 flex flex-col gap-2 px-5">
       <AppMenuBtn />
       <h2 className="text-2xl font-bold">Filter Pokemons</h2>
-      <SelectPokemonTypes types={types} />
+      <SelectPokemonTypes initialType={type} types={types} />
       <section className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-4 xl:grid-cols-6">
         {pokemons.map((pokemon) => (
           <Link key={pokemon.id} href={`/pokemon/${pokemon.name}`}>
