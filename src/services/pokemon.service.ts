@@ -13,6 +13,7 @@ import type {
   TypeOverview,
 } from '@/interfaces/get-pokemon-types-response'
 import type { GetPokemonsResponse } from '@/interfaces/get-pokemons-response'
+import type { GetPokemonSpeciesResponse } from '@/interfaces/get-pokemon-species-response'
 
 const pokeApi = axios.create({
   baseURL: 'https://pokeapi.co/api/v2',
@@ -102,4 +103,12 @@ export const getPokemonOverviewsByType = async (
   const pokemonOverviews = PokemonAdapter.toPokemonOverview(rawPokemons)
 
   return pokemonOverviews
+}
+
+export const getPokemonSpecies = async (name: string) => {
+  const { data } = await pokeApi.get<GetPokemonSpeciesResponse>(
+    `/pokemon-species/${name}`,
+  )
+
+  return data
 }
