@@ -4,11 +4,12 @@ import { adaptRawPokemon } from '@/adapters/adapt-raw-pokemon'
 
 import { getPokemonImage } from '@/utils/get-pokemon-image'
 
-import type { PokemonOverview } from '@/models/pokemon-overview'
 import type { Pokemon } from '@/models/pokemon'
+import type { PokemonOverview } from '@/models/pokemon-overview'
 
 import type { PokemonDetailsResponse } from '@/interfaces/get-pokemon-details-response'
 import type { PokemonMoveResponse } from '@/interfaces/get-pokemon-move-response'
+import type { GetPokemonTypesResponse } from '@/interfaces/get-pokemon-types-response'
 import type { GetPokemonsResponse } from '@/interfaces/get-pokemons-response'
 
 const pokeApi = axios.create({
@@ -78,4 +79,9 @@ export const getPokemonsByPage = async (
 
   const pokemons = await getPokemons(limit, offset)
   return pokemons
+}
+
+export const getPokemonTypes = async () => {
+  const { data } = await pokeApi.get<GetPokemonTypesResponse>('/type')
+  return data.results
 }
