@@ -16,6 +16,7 @@ import { Title } from '@/domains/single-pokemon/components/title'
 import { getPokemonImage } from '@/utils/get-pokemon-image'
 import { getPokemonColorsByTypes } from '@/utils/pokemon-colors'
 import { capitalize } from '@/utils/string'
+import { getPokemonSpecies } from '../../../services/pokemon.service'
 
 export const revalidate = false
 export const dynamicParams = true
@@ -48,7 +49,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function PokemonPage({ params }: Props) {
   const { name } = await params
-  const pokemon = await getSinglePokemon(name)
+  const [pokemon, pokemonSpecies] = await Promise.all([
+    getSinglePokemon(name),
+    getPokemonSpecies(name),
+  ])
 
   const { primaryColor, background } = getPokemonColorsByTypes(pokemon.types)
   const typesNames = pokemon.types.map((type) => type.type.name)
@@ -101,7 +105,8 @@ export default async function PokemonPage({ params }: Props) {
 
         <section className="mt-5">
           <Title bgColor={primaryColor}>Details</Title>
-          <PokemonDetails pokemon={pokemon} />
+
+          <PokemonDetails pokemon={pokemon} pokemonSpecies={pokemonSpecies} />
         </section>
 
         <section className="mt-5">
