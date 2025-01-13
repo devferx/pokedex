@@ -1,4 +1,4 @@
-import { Home, Search } from 'lucide-react'
+import { Filter, Home, Search } from 'lucide-react'
 import Link from 'next/link'
 
 import {
@@ -18,6 +18,11 @@ const items = [
     title: 'Home',
     url: '/',
     icon: Home,
+  },
+  {
+    title: 'Filters',
+    url: '/filters',
+    icon: Filter,
   },
   {
     title: 'Search',
