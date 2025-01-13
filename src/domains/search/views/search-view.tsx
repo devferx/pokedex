@@ -7,7 +7,7 @@ import { useDebounce } from '../hooks/use-debounce'
 import { useUpdateSearchQuery } from '../hooks/use-update-search-query'
 
 import { Input } from '@/components/ui/input'
-import { PokemonCard } from '@/domains/search/components/pokemon-card'
+import { PokemonOverviewCard } from '@/components/pokemon-overview-card'
 
 import { searchPokemonsByName } from '../utils/search-pokemonts'
 
@@ -40,7 +40,7 @@ export const SearchView = ({ pokemons, query = '' }: Props) => {
       <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-4 xl:grid-cols-6">
         {filteredPokemons.map((pokemon) => (
           <Link key={pokemon.id} href={`/pokemon/${pokemon.name}`}>
-            <PokemonCard pokemon={pokemon} />
+            <PokemonOverviewCard pokemon={pokemon} />
           </Link>
         ))}
       </div>

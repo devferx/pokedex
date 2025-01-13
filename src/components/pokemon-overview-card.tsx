@@ -6,7 +6,7 @@ interface Props {
   pokemon: PokemonOverview
 }
 
-export const PokemonCard: React.FC<Props> = ({ pokemon }) => {
+export const PokemonOverviewCard: React.FC<Props> = ({ pokemon }) => {
   return (
     <Card>
       <CardContent>

@@ -90,7 +90,9 @@ export const getPokemonTypes = async (): Promise<TypeOverview[]> => {
   return sortedTypes
 }
 
-export const getPokemonsByType = async (type?: string): Promise<Pokemon[]> => {
+export const getPokemonOverviewsByType = async (
+  type?: string,
+): Promise<PokemonOverview[]> => {
   if (!type) return []
   if (type === '') return []
 
@@ -98,7 +100,6 @@ export const getPokemonsByType = async (type?: string): Promise<Pokemon[]> => {
 
   const rawPokemons = data.pokemon.map(({ pokemon }) => pokemon)
   const pokemonOverviews = PokemonAdapter.toPokemonOverview(rawPokemons)
-  const pokemons = await getPokemonsByOverviews(pokemonOverviews)
 
-  return pokemons
+  return pokemonOverviews
 }
