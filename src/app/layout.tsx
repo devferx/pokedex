@@ -20,11 +20,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-      </head>
       <body>
-        <SidebarProvider defaultOpen={false}>
+        <SidebarProvider>
           <AppSidebar />
           {children}
         </SidebarProvider>
