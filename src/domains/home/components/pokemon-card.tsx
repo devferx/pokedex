@@ -1,6 +1,8 @@
-import { Card, CardContent, CardTitle } from '@/components/ui/card'
+import Image from 'next/image'
 
+import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/domains/home/components/badge'
+
 import { getPokemonColorsByTypes } from '@/utils/pokemon-colors'
 
 import type { Pokemon } from '@/models/pokemon'
@@ -15,8 +17,13 @@ export const PokemonCard: React.FC<Props> = ({ pokemon }) => {
   return (
     <Card className="overflow-hidden">
       <div className="h-fit w-full" style={{ background }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="w-full" src={pokemon.imageSrc} alt={pokemon.name} />
+        <Image
+          width={150}
+          height={150}
+          className="w-full"
+          src={pokemon.imageSrc}
+          alt={pokemon.name}
+        />
       </div>
 
       <CardContent className="flex-col p-3">

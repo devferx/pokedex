@@ -1,5 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
 import type { Metadata } from 'next'
+import Image from 'next/image'
 
 import {
   getPokemonsOverview,
@@ -63,7 +63,9 @@ export default async function PokemonPage({ params }: Props) {
       <div className="mx-auto mt-4 max-h-full w-full max-w-[600px] flex-1 overflow-y-scroll bg-white p-5">
         <header className="grid grid-cols-1 gap-2 md:grid-cols-2">
           <div>
-            <img
+            <Image
+              width={300}
+              height={300}
               className="w-[300px]"
               src={getPokemonImage(pokemon.id)}
               alt={pokemon.name}
